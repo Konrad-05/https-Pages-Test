@@ -134,16 +134,16 @@ async function startCamera() {
             console.warn("Taschenlampen-Funktion wird von dieser Kamera nicht unterstützt.");
         }
 
-        /// Überprüfung des Fokus
+        // Überprüfung des Fokus
         focusCameraButton.style.display = 'block';
-        focusCameraButton.disabled = false; // Button immer aktivieren, wenn Kamera läuft
+        focusCameraButton.disabled = false; // Button immer aktivieren
         if ('focusMode' in capabilities) {
-            videoTrack.applyConstraints({
-                advanced: [{ focusMode: 'continuous' }]
-            }).catch(e => console.log("Kontinuierlicher Autofokus wird nicht unterstützt."));
-            console.log('Fokus-Funktion ist verfügbar.');
+             videoTrack.applyConstraints({
+                 advanced: [{ focusMode: 'continuous' }]
+             }).catch(e => console.log("Kontinuierlicher Autofokus wird nicht unterstützt."));
+             console.log('Fokus-Funktion ist verfügbar.');
         } else {
-            console.warn("Fokus-Funktion wird von dieser Kamera nicht unterstützt.");
+             console.warn("Fokus-Funktion wird von dieser Kamera nicht unterstützt.");
         }
 
         startCameraButton.textContent = 'Kamera stoppen';
@@ -206,7 +206,7 @@ function stopCamera() {
 function capturePhoto() {
     if (!stream) return;
     
-    // NEU: Berechne die idealen Dimensionen für das 2:3 Seitenverhältnis
+    // Berechne die idealen Dimensionen für das 2:3 Seitenverhältnis
     const videoWidth = videoElement.videoWidth;
     const videoHeight = videoElement.videoHeight;
     const targetRatio = 2 / 3;
