@@ -134,17 +134,16 @@ async function startCamera() {
             console.warn("Taschenlampen-Funktion wird von dieser Kamera nicht unterstützt.");
         }
 
-        // Überprüfung des Fokus
+        /// Überprüfung des Fokus
         focusCameraButton.style.display = 'block';
+        focusCameraButton.disabled = false; // Button immer aktivieren, wenn Kamera läuft
         if ('focusMode' in capabilities) {
-             videoTrack.applyConstraints({
-                 advanced: [{ focusMode: 'continuous' }]
-             }).catch(e => console.log("Kontinuierlicher Autofokus wird nicht unterstützt."));
-             focusCameraButton.disabled = false;
-             console.log('Fokus-Funktion ist verfügbar.');
+            videoTrack.applyConstraints({
+                advanced: [{ focusMode: 'continuous' }]
+            }).catch(e => console.log("Kontinuierlicher Autofokus wird nicht unterstützt."));
+            console.log('Fokus-Funktion ist verfügbar.');
         } else {
-             focusCameraButton.disabled = true; // Deaktivieren, wenn nicht vorhanden
-             console.warn("Fokus-Funktion wird von dieser Kamera nicht unterstützt.");
+            console.warn("Fokus-Funktion wird von dieser Kamera nicht unterstützt.");
         }
 
         startCameraButton.textContent = 'Kamera stoppen';
