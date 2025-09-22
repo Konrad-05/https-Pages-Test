@@ -283,12 +283,18 @@ async function toggleFlashlight() {
     if (!videoTrack) return;
 
     try {
-        await videoTrack.applyConstraints({
+        const track = stream.getVideoTracks()[0];
+        const newTrack = track.clone(); // Klonen des Video-Tracks, um Konflikte zu vermeiden
+
+        await newTrack.applyConstraints({
             advanced: [{ torch: !isFlashlightOn }]
         });
+
         isFlashlightOn = !isFlashlightOn;
         toggleFlashlightButton.textContent = isFlashlightOn ? 'Taschenlampe aus' : 'Taschenlampe an';
         console.log(`Taschenlampe umgeschaltet: ${isFlashlightOn}`);
+
+        newTrack.stop(); // Stoppen des geklonten Tracks, um Ressourcen freizugeben
     } catch (e) {
         console.error("Fehler beim Umschalten der Taschenlampe:", e);
         showSnackbar("Fehler beim Umschalten der Taschenlampe.");
