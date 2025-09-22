@@ -73,6 +73,7 @@ async function proceedToUpload() {
     console.log('--- Ende Anmeldeversuch ---');
 }
 
+
 // --- Camera Logic ---
 async function startCamera() {
     if (stream) {
@@ -282,7 +283,6 @@ async function toggleFlashlight() {
     if (!videoTrack) return;
 
     try {
-        // Trennt die Taschenlampensteuerung von anderen Constraints, um die Kompatibilität zu erhöhen
         await videoTrack.applyConstraints({
             advanced: [{ torch: !isFlashlightOn }]
         });
@@ -738,7 +738,7 @@ async function getFileIdAndPostComment(fileUrl, comment, credentials) {
         const propfindResponse = await fetch(fileUrl, {
             method: 'PROPFIND',
             headers: {
-                'Authorization': `Basic ${credentials}`,
+                'Authorization': `Basic ${storedCredentials}`,
                 'Depth': '0',
                 'Content-Type': 'application/xml'
             },
