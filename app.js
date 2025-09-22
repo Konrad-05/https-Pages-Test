@@ -282,6 +282,7 @@ async function toggleFlashlight() {
     if (!videoTrack) return;
 
     try {
+        // Trennt die Taschenlampensteuerung von anderen Constraints, um die Kompatibilität zu erhöhen
         await videoTrack.applyConstraints({
             advanced: [{ torch: !isFlashlightOn }]
         });
